@@ -1,19 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace canvasApi.Models;
 
-public class User
+public class User : IdentityUser
 {
-    [Key]
-    public string Id { get; set; } = string.Empty;
-
-    public string Username { get; set; } = string.Empty;
-
-    public string Email { get; set; } = string.Empty;
-
     public string FirstName { get; set; } = string.Empty;
 
     public string LastName { get; set; } = string.Empty;
 
-    public string HashedPassword { get; set; } = string.Empty;
+    public Canvas? Canvas { get; set; }
 }
