@@ -1,34 +1,28 @@
-
-using canvasApi.Data;
+using Api.Data;
+using Api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
 
-builder.Services.AddOpenApi();
+builder.Services
+    .AddIdentityCore<User>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
+// Auth and JWT
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.UseAuthentication();
+app.UseAuthorization();
 
-app.UseHttpsRedirection();
-
-// get canvas/{id}  get canvas by id.
-//
-// put canvas // creates a new canvas
-//
-// delete canvas // deletes a canvas.
-
+app.MapControllers();
 
 app.Run();

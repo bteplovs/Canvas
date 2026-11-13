@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace canvasApi.Models;
+namespace Api.Models;
 
 public class User : IdentityUser
 {

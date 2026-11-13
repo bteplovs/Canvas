@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace canvasApi.Models;
+namespace Api.Models;
 
 public class Canvas
 {
@@ -11,5 +11,8 @@ public class Canvas
     [Required]
     [ForeignKey(nameof(User))]
     public string UserId { get; set; } = string.Empty;
+
+    [Required]
+    public User User {get; set; }
 
 }
