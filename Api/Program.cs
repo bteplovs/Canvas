@@ -17,6 +17,8 @@ builder.Services
     .AddEntityFrameworkStores<AppDbContext>();
 
 // Auth and JWT
+builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
