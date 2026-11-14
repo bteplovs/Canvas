@@ -11,3 +11,9 @@ public class User : IdentityUser
 
     public Canvas? Canvas { get; set; }
 }
+
+public record CreateUserRequest(string FirstName, string LastName, string Email, string Username, string Password);
+
+public record LoginUserRequest(string Email, string Password);
+
+public record AuthResponse(string TokenType, string AccessToken, int ExpiresIn);

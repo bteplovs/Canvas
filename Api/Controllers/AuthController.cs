@@ -10,6 +10,12 @@ public class AuthController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Login()
     {
+
+        // Accept login Request
+        //
+        // Validate credentials
+        // Return JWT token in response
+
         System.Console.WriteLine("Login");
         return Ok();
     }
