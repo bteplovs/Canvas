@@ -1,3 +1,4 @@
+using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -8,12 +9,11 @@ public class AuthController : ControllerBase
 {
 
     [HttpPost]
-    public async Task<IActionResult> Login()
+    public async Task<IActionResult> Login([FromBody] LoginUserRequest req)
     {
-
         // Accept login Request
         //
-        // Validate credentials
+        // Validate credentials (unique, correct etc)
         // Return JWT token in response
 
         System.Console.WriteLine("Login");
@@ -21,8 +21,25 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register()
+    public async Task<IActionResult> Register([FromBody] CreateUserRequest req)
     {
+
+        // Validate input. and return error if incorrect, only valid data enters services.
+
+
+        // TODO: remove below and pass directly into service.
+
+        var user = new User
+        {
+            Email = req.Email,
+            UserName = req.Username,
+            FirstName = req.FirstName,
+            LastName = req.LastName,
+            PasswordHash = req.Password
+        };
+
+        // Create service to hash password
+
         System.Console.WriteLine("Login");
         return Ok();
     }
