@@ -9,7 +9,7 @@ namespace Api.Controllers;
 public class AuthController(IAuthService authService) : ControllerBase
 {
 
-    [HttpPost]
+    [HttpPost("/login")]
     public async Task<IActionResult> Login([FromBody] LoginUserRequest req)
     {
         // Accept login Request
@@ -21,7 +21,7 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost("/register")]
     public async Task<IActionResult> Register([FromBody] CreateUserRequest req)
     {
 
