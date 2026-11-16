@@ -49,6 +49,22 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
         return Ok();
     }
 
+    [Authorize]
+    [HttpGet("/me")]
+    public async Task<IActionResult> Me()
+    {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        return Ok(new UserResponse(
+            user.Id,
+            user.FirstName,
+            user.LastName,
+            user.Email!,
+            user.UserName!
+        ));
+    }
+
 }
 
 // TODO:

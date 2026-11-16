@@ -15,4 +15,4 @@ public record CreateUserRequest(string FirstName, string LastName, string Email,
 
 public record LoginUserRequest(string Email, string Password);
 
-public record AuthResponse(string TokenType, string AccessToken, int ExpiresIn);
+public record UserResponse(string Id, string FirstName, string LastName, string Email, string Username);
