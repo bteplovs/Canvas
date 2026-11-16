@@ -27,19 +27,6 @@ public class AuthController : ControllerBase
         // Validate input. and return error if incorrect, only valid data enters services.
 
 
-        // TODO: remove below and pass directly into service.
-
-        var user = new User
-        {
-            Email = req.Email,
-            UserName = req.Username,
-            FirstName = req.FirstName,
-            LastName = req.LastName,
-            PasswordHash = req.Password
-        };
-
-        // Create service to hash password
-
         System.Console.WriteLine("Login");
         return Ok();
     }

@@ -1,6 +1,7 @@
 
 using Api.Data;
 using Api.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Services;
@@ -17,13 +18,15 @@ public class AuthService(IDbContextFactory<AppDbContext> context) : IAuthService
     {
         await using var db = await context.CreateDbContextAsync();
 
+        var hasher = new PasswordHasher<object>();
+
         var user = new User
         {
             Email = req.Email,
             UserName = req.Username,
             FirstName = req.FirstName,
             LastName = req.LastName,
-            PasswordHash = req.Password
+            PasswordHash = hasher.HashPassword(null!, req.Password)
         };
 
         db.Add(user);
