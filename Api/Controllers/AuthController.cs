@@ -1,5 +1,4 @@
 using Api.Models;
-using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -64,10 +63,4 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
             user.UserName!
         ));
     }
-
 }
-
-// TODO:
-// 1. Add dtos for login, reg, auth response. (save in js secure cookie).
-// 2. Token service for issuing JWT token (Itokenservice, TokenService)
-// 3. Create /me endpoint to call on page refresh to check if token is still valid. (FE job)
