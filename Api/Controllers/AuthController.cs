@@ -12,12 +12,14 @@ public class AuthController(IAuthService authService) : ControllerBase
     [HttpPost("/login")]
     public async Task<IActionResult> Login([FromBody] LoginUserRequest req)
     {
-        // Accept login Request
-        //
-        // Validate credentials (unique, correct etc)
-        // Return JWT token in response
+        // Validate credentials (unique, correct, not empty etc)
 
-        System.Console.WriteLine("Login");
+        // check against saved in db
+        var loggedInUser = await authService.Login(req);
+        if (loggedInUser == null) { return Unauthorized(); }
+
+        // Generate and return JWT token in response
+
         return Ok();
     }
 
@@ -27,9 +29,7 @@ public class AuthController(IAuthService authService) : ControllerBase
 
         // Validate input. and return error if incorrect, only valid data enters services.
         //
-
-        var user = await authService.CreateUserAsync(req);
-
+        var createdUser = await authService.CreateUserAsync(req);
         // Create JWT token from here!
 
         return Created();

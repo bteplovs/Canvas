@@ -12,13 +12,11 @@ public interface IAuthService
     Task<User?> Login(LoginUserRequest req);
 }
 
-public class AuthService(IDbContextFactory<AppDbContext> context) : IAuthService
+public class AuthService(IDbContextFactory<AppDbContext> context, PasswordHasher<object> hasher) : IAuthService
 {
     public async Task<User> CreateUserAsync(CreateUserRequest req)
     {
         await using var db = await context.CreateDbContextAsync();
-
-        var hasher = new PasswordHasher<object>();
 
         var user = new User
         {
@@ -38,6 +36,19 @@ public class AuthService(IDbContextFactory<AppDbContext> context) : IAuthService
 
     public async Task<User?> Login(LoginUserRequest req)
     {
-        throw new NotImplementedException();
+        await using var db = await context.CreateDbContextAsync();
+
+        var user = await db.Users.FirstOrDefaultAsync(u => u.Email == req.Email);
+        if (user == null) { return null; }
+
+        if (!VerifyPassword(user.PasswordHash!, req.Password)) { return null; }
+
+        return user;
+    }
+
+    private bool VerifyPassword(string hashedPassword, string providedPassword)
+    {
+        var result = hasher.VerifyHashedPassword(null!, hashedPassword, providedPassword);
+        return result == PasswordVerificationResult.Success;
     }
 }
