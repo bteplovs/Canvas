@@ -9,7 +9,7 @@ namespace Api.Services;
 public interface IAuthService
 {
     Task<User> CreateUserAsync(CreateUserRequest req);
-    Task<User> Login(LoginUserRequest req);
+    Task<User?> Login(LoginUserRequest req);
 }
 
 public class AuthService(IDbContextFactory<AppDbContext> context) : IAuthService
@@ -36,7 +36,7 @@ public class AuthService(IDbContextFactory<AppDbContext> context) : IAuthService
         return createdUser;
     }
 
-    public async Task<User> Login(LoginUserRequest req)
+    public async Task<User?> Login(LoginUserRequest req)
     {
         throw new NotImplementedException();
     }

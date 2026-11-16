@@ -1,11 +1,12 @@
 using Api.Models;
+using Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase
+public class AuthController(IAuthService authService) : ControllerBase
 {
 
     [HttpPost]
@@ -25,10 +26,13 @@ public class AuthController : ControllerBase
     {
 
         // Validate input. and return error if incorrect, only valid data enters services.
+        //
 
+        var user = await authService.CreateUserAsync(req);
 
-        System.Console.WriteLine("Login");
-        return Ok();
+        // Create JWT token from here!
+
+        return Created();
     }
 }
 
