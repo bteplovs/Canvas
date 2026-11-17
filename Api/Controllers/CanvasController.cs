@@ -37,7 +37,7 @@ public class CanvasController(ICanvasService canvasService) : ControllerBase
     public async Task<IActionResult> UpdateCanvas(int canvasId, [FromBody] UpdateCanvasRequest req)
     {
         var updated = await canvasService.UpdateAsync(UserId, canvasId, req);
-        return updated is null ? NotFound() : Ok(canvas);
+        return updated is null ? NotFound() : Ok(updated);
     }
 
     [HttpPut("canvases/{canvasId}/primary")]
