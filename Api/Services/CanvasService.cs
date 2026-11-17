@@ -39,7 +39,7 @@ public class CanvasService(AppDbContext db) : ICanvasService
 
     public async Task<List<CanvasResponse>> GetAllAsync(string userId)
     {
-        var all = await Owned(userId).ToListAsync();
+        var all = await Owned(userId).AsNoTracking().ToListAsync();
         return [.. all.Select(ToResponse)];
     }
 

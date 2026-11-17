@@ -14,38 +14,43 @@ public class CanvasController(ICanvasService canvasService) : ControllerBase
     private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
     [HttpGet("users/{userId}/canvases")]
-    public async Task<CanvasResponse> GetAllCanvas(string userId)
+    public async Task<ActionResult<List<CanvasResponse>>> GetAllCanvas(string userId)
     {
-        return Ok(await canvasService);
+        return Ok(await canvasService.GetAllAsync(userId));
     }
 
     [HttpGet("canvases/{canvasId}")]
-    public async Task<CanvasResponse> GetCanvas(int canvasId)
+    public async Task<ActionResult<CanvasResponse>> GetCanvas(int canvasId)
     {
-        return Ok();
+        var canvas = await canvasService.GetAsync(UserId, canvasId);
+        return canvas is null ? NotFound() : Ok(canvas);
     }
 
-    [HttpPost]
-    public async Task<CanvasResponse> CreateCanvas()
+    [HttpPost("canvases")]
+    public async Task<ActionResult<CanvasResponse>> CreateCanvas(CreateCanvasRequest req)
     {
-         return Ok();
+        var canvas = await canvasService.CreateAsync(UserId, req);
+        return CreatedAtAction(nameof(GetCanvas), new { canvasId = canvas.Id }, canvas);
     }
 
     [HttpPut("canvases/{canvasId}/update")]
-    public async Task<IActionResult> UpdateCanvas(int canvasId)
+    public async Task<IActionResult> UpdateCanvas(int canvasId, [FromBody] UpdateCanvasRequest req)
     {
-        return Ok();
+        var updated = await canvasService.UpdateAsync(UserId, canvasId, req);
+        return updated is null ? NotFound() : Ok(canvas);
     }
 
     [HttpPut("canvases/{canvasId}/primary")]
     public async Task<IActionResult> SetCanvasPrimary(int canvasId)
     {
-        return Ok();
+        var setPrimary = await canvasService.SetPrimaryAsync(UserId, canvasId);
+        return setPrimary is false ? NotFound() : Ok();
     }
 
     [HttpDelete("canvases/{canvasId}/delete")]
     public async Task<IActionResult> DeleteCanvas(int canvasId)
     {
-        return Ok();
+        var deleted = await canvasService.DeleteAsync(UserId, canvasId);
+        return deleted is false ? NotFound() : NoContent();
     }
 }
