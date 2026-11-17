@@ -40,8 +40,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Canvases");
                 });
@@ -249,8 +248,8 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Models.Canvas", b =>
                 {
                     b.HasOne("Api.Models.User", "User")
-                        .WithOne("Canvas")
-                        .HasForeignKey("Api.Models.Canvas", "UserId")
+                        .WithMany("Canvas")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
