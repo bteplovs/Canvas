@@ -12,6 +12,7 @@ public class Canvas
     [ForeignKey(nameof(User))]
     public string UserId { get; set; } = string.Empty;
 
-    public required User User {get; set; }
-
+    public required User User { get; set; }
 }
+
+public record CanvasResponse(int Id, string UserId);
