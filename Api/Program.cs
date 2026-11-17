@@ -2,6 +2,7 @@ using Api.Data;
 using Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +49,8 @@ builder.Services.ConfigureApplicationCookie(options =>
         return Task.CompletedTask;
     };
 });
+
+builder.Services.AddScoped<ICanvasService, CanvasService>();
 
 builder.Services.AddAuthorization();
 

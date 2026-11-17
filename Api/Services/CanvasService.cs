@@ -21,7 +21,7 @@ public class CanvasService(AppDbContext db) : ICanvasService
 
     public async Task<CanvasResponse> CreateAsync(string userId, CreateCanvasRequest req)
     {
-        var canvas = new Canvas { Data = req.Data, IsPrimary = false, UserId = userId };
+        var canvas = new Canvas { Name=req.Name, Data = req.Data, IsPrimary = false, UserId = userId };
         db.Canvases.Add(canvas);
         await db.SaveChangesAsync();
         return ToResponse(canvas);

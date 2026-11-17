@@ -23,6 +23,6 @@ public class Canvas
 
 public record CanvasResponse(int Id, string UserId);
 
-public record CreateCanvasRequest(int Id, string Name, string Data);
+public record CreateCanvasRequest(string Name, string Data);
 
-public record UpdateCanvasRequest(int Id, string? Data, string? Name);
+public record UpdateCanvasRequest(string? Data, string? Name);
