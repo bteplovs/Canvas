@@ -19,7 +19,7 @@ public class CanvasController(ICanvasService canvasService) : ControllerBase
         return Ok(await canvasService.GetAllAsync(userId));
     }
 
-    [HttpGet("canvases/{canvasId}")]
+    [HttpGet("canvases/{canvasId:int}")]
     public async Task<ActionResult<CanvasResponse>> GetCanvas(int canvasId)
     {
         var canvas = await canvasService.GetAsync(UserId, canvasId);
@@ -33,21 +33,21 @@ public class CanvasController(ICanvasService canvasService) : ControllerBase
         return CreatedAtAction(nameof(GetCanvas), new { canvasId = canvas.Id }, canvas);
     }
 
-    [HttpPut("canvases/{canvasId}/update")]
+    [HttpPut("canvases/{canvasId:int}/update")]
     public async Task<IActionResult> UpdateCanvas(int canvasId, [FromBody] UpdateCanvasRequest req)
     {
         var updated = await canvasService.UpdateAsync(UserId, canvasId, req);
         return updated is null ? NotFound() : Ok(updated);
     }
 
-    [HttpPut("canvases/{canvasId}/primary")]
+    [HttpPut("canvases/{canvasId:int}/primary")]
     public async Task<IActionResult> SetCanvasPrimary(int canvasId)
     {
         var setPrimary = await canvasService.SetPrimaryAsync(UserId, canvasId);
         return setPrimary is false ? NotFound() : Ok();
     }
 
-    [HttpDelete("canvases/{canvasId}/delete")]
+    [HttpDelete("canvases/{canvasId:int}/delete")]
     public async Task<IActionResult> DeleteCanvas(int canvasId)
     {
         var deleted = await canvasService.DeleteAsync(UserId, canvasId);
