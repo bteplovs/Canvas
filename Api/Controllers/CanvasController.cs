@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Api.Models;
+using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +16,11 @@ public class CanvasController(ICanvasService canvasService) : ControllerBase
     [HttpGet("users/{userId}/canvases")]
     public async Task<CanvasResponse> GetAllCanvas(string userId)
     {
-        return Ok(await );
+        return Ok(await canvasService);
     }
 
     [HttpGet("canvases/{canvasId}")]
-    public async Task<CanvasResponse> GetCanvas(string userId, int canvasId)
+    public async Task<CanvasResponse> GetCanvas(int canvasId)
     {
         return Ok();
     }
