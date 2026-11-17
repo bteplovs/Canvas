@@ -8,14 +8,14 @@ namespace Api.Controllers;
 [Authorize]
 [ApiController]
 [Route("api")]
-public class CanvasController() : ControllerBase
+public class CanvasController(ICanvasService canvasService) : ControllerBase
 {
     private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
     [HttpGet("users/{userId}/canvases")]
     public async Task<CanvasResponse> GetAllCanvas(string userId)
     {
-        return Ok();
+        return Ok(await );
     }
 
     [HttpGet("canvases/{canvasId}")]

@@ -50,7 +50,7 @@ public class AuthController(UserManager<User> userManager, SignInManager<User> s
 
     [Authorize]
     [HttpGet("/me")]
-    public async Task<IActionResult> Me()
+    public async Task<ActionResult<UserResponse>> Me()
     {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
