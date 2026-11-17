@@ -18,11 +18,11 @@ public class Canvas
     [ForeignKey(nameof(User))]
     public string UserId { get; set; } = string.Empty;
 
-    public required User User { get; set; }
+    public User User { get; set; } = null!;
 }
 
 public record CanvasResponse(int Id, string UserId);
 
 public record CreateCanvasRequest(int Id, string Name, string Data);
 
-public record UpdateCanvasRequest(int Id, string? Data, bool IsPrimary);
+public record UpdateCanvasRequest(int Id, string? Data, string? Name);
